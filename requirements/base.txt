@@ -1,0 +1,17 @@
+pytz==2022.7  # https://github.com/stub42/pytz
+argon2-cffi==21.3.0  # https://github.com/hynek/argon2_cffi
+whitenoise==6.2.0  # https://github.com/evansd/whitenoise
+
+# Django
+# ------------------------------------------------------------------------------
+django==4.1.5  # pyup: < 4.1  # https://www.djangoproject.com/
+django-environ  # https://django-environ.readthedocs.io/en/latest/index.html
+django-model-utils==4.3.1  # https://github.com/jazzband/django-model-utils
+django-crispy-forms==1.14.0  # https://github.com/django-crispy-forms/django-crispy-forms
+crispy-bootstrap5==0.7  # https://github.com/django-crispy-forms/crispy-bootstrap5
+django-compressor==4.1  # https://github.com/django-compressor/django-compressor
+
+
+# Sensors & Raspberry PI
+# ------------------------------------------------------------------------------
+Adafruit-DHT-Fixed==1.4.2
