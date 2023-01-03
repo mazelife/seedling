@@ -19,6 +19,8 @@ class Command(BaseCommand):
                     humidity, temperature = readings
                     temperature_f = ((9 / 5) * temperature) + 32
                     self.stdout.write(self.style.NOTICE(f"Humidity is {humidity:.2f}% and temp is {temperature_f:.2f}°F."))
+                    reading = ClimateReading(degrees_celsius=round(temperature, 4), percent_humidity=round(humidity, 4))
+                    reading.save()
                 else:
                     self.stdout.write(self.style.ERROR("Failed to get readings from sensor."))
                 time.sleep(60 * 5)
