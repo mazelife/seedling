@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def _get_readings() -> tuple[float, float]:
-    humidity, temperature = dht.read_retry(dht.DHT22, settings.DHT_SENSOR_PIN, retries=0)
+    humidity, temperature = dht.read(dht.DHT22, settings.DHT_SENSOR_PIN)
     if humidity is None:
         if temperature is None:
             raise RecoverableSensorError("Failed to get temperature and humidity reading")
