@@ -44,4 +44,4 @@ def sample_humidity_and_temperature(samples=5) -> Optional[tuple[float, float]]:
         time.sleep(2)
     if not humidity_readings or not temperature_readings:
         return None
-    mean(humidity_readings), mean(temperature_readings)
+    return mean(humidity_readings), mean(temperature_readings)
