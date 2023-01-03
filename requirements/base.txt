@@ -14,4 +14,4 @@ django-compressor==4.1  # https://github.com/django-compressor/django-compressor
 
 # Sensors & Raspberry PI
 # ------------------------------------------------------------------------------
-Adafruit-DHT-Fixed==1.4.2
+Adafruit-DHT==1.4.0
