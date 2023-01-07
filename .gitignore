@@ -326,3 +326,9 @@ tags
 seedling/media/
 
 .pytest_cache/
+
+# SQLite DB
+seedling.db
+
+# PyCharm
+.idea/*

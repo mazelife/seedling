@@ -2,6 +2,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from model_utils.fields import AutoCreatedField
 
+from seedling.utils.conversions import celsius_to_fahrenheit
+
 
 class ClimateReading(models.Model):
 
@@ -15,5 +17,4 @@ class ClimateReading(models.Model):
 
     @property
     def degrees_fahrenheit(self) -> float:
-        return ((9 / 5) * self.degrees_celsius) + 32
-
+        return celsius_to_fahrenheit(self.degrees_celsius)

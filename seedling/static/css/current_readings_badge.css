@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+#climate-badge {
+  background-image: linear-gradient( 135deg, #92FFC0 0%, #002661 100%);
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 3px 25px -5px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 3px 25px -5px rgba(0,0,0,0.5);
+  box-shadow: 0px 3px 25px -5px rgba(0,0,0,0.5);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  margin: 15px 5px;
+  min-height: 100px;
+  padding: 15px 30px 25px;
+  transition: box-shadow .2s;
+  width: max-content;
+}
+
+#climate-badge-header {
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+#climate-badge-reading {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-top: 25px;
+  text-align: center;
+}
+#climate-badge-reading img {
+  height: 60px;
+}

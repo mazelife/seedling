@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/current_readings_badge.css' %}" />
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script src="{% static 'js/vendored/jquery.js' %}" defer></script>
+<script src="{% static 'js/current_readings_badge.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+{% include "includes/current_readings_badge.html" %}
+{% endblock content %}
+
+{% block inline_javascript %}
+<script>
+  window.addEventListener('DOMContentLoaded', () => loadCurrentReadingData(currentReadingURL));
+</script>
+{% endblock %}

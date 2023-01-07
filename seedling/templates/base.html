@@ -9,7 +9,8 @@
     <meta name="description" content="Watering and temperature control system for seed germination">
     <meta name="author" content="James Stevenson">
 
-    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicons/favicon.png' %}" />
+    <link rel="apple-touch-icon" href="{% static 'images/favicons/favicon.90.png' %}" />
 
     {% block css %}
     <!-- Latest compiled and minified Bootstrap CSS -->
@@ -25,15 +26,13 @@
     ================================================== -->
     {# Placed at the top of the document so pages load faster with defer #}
     {% block javascript %}
-      <!-- Bootstrap JS -->
       <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <!-- Your stuff: Third-party javascript libraries go here -->
-
-      <!-- place project specific Javascript in this file -->
       {% compress js %}
       <script defer src="{% static 'js/project.js' %}"></script>
       {% endcompress %}
-
+      <script>
+        const currentReadingURL = "{% url 'climate-current-reading-json' %}";
+      </script>
     {% endblock javascript %}
 
   </head>
@@ -54,7 +53,7 @@
                 <a class="nav-link" href="{% url 'home' %}">Home <span class="visually-hidden">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">About</a>
+                <a class="nav-link" href="{% url 'climate-index' %}">Climate</a>
               </li>
             </ul>
           </div>

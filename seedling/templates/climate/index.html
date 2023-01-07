@@ -1,0 +1,55 @@
+{% extends "base.html" %}{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/current_readings_badge.css' %}" />
+{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script src="{% static 'js/vendored/jquery.js' %}" defer></script>
+<script src="{% static 'js/vendored/plotly.js' %}" defer></script>
+<script src="{% static 'js/current_readings_badge.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+{% include "includes/current_readings_badge.html" %}
+<div id="temperature-chart"></div>
+<div id="humidity-chart"></div>
+{% endblock content %}
+
+{% block inline_javascript %}
+<script>
+  const sourceData = {{ readings_json|safe }};
+  window.addEventListener('DOMContentLoaded', () => {
+
+    loadCurrentReadingData(currentReadingURL);
+
+    const tempData = [
+      {
+        x: sourceData.map((el) => el.created),
+        y: sourceData.map((el) => el.degrees_fahrenheit),
+        type: "scatter",
+        line: {
+          color: "rgb(234, 139, 44)"
+        }
+      }
+    ];
+    Plotly.newPlot('temperature-chart', tempData, {title: "Temperature", yaxis: {title: "°F"}});
+
+    const humidityData = [
+      {
+        x: sourceData.map((el) => el.created),
+        y: sourceData.map((el) => el.percent_humidity),
+        type: "scatter",
+        line: {
+          color: "rgb(44, 182, 234)"
+        }
+
+      }
+    ]
+    Plotly.newPlot('humidity-chart', humidityData, {title: "Humidity", yaxis: {title: "% Humidity"}});
+
+  });
+</script>
+{% endblock %}
