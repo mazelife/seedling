@@ -252,6 +252,7 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 
 # RaspberryPI Sensor Configs
 DHT_SENSOR_PIN = 4
+LED_PIN = 17
 
 # Your stuff...
 # ------------------------------------------------------------------------------

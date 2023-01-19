@@ -6,6 +6,7 @@ from typing import Optional
 import Adafruit_DHT as dht
 from django.conf import settings
 
+from seedling.utils.led import led_on
 from seedling.utils.sensors import retry_with_backoff, RecoverableSensorError, UnRecoverableSensorError
 
 
@@ -26,7 +27,8 @@ def _get_readings() -> tuple[float, float]:
 
 def get_humidity_and_temperature() -> Optional[tuple[float, float]]:
     try:
-        humidity, temperature = retry_with_backoff(_get_readings, retries=5, backoff_in_seconds=2)
+        with led_on(settings.LED_PIN):
+            humidity, temperature = retry_with_backoff(_get_readings, retries=5, backoff_in_seconds=2)
     except UnRecoverableSensorError as err:
         logger.warning(f"{err} after 5 attempts.")
         return None
