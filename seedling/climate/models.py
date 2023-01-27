@@ -17,4 +17,7 @@ class ClimateReading(models.Model):
 
     @property
     def degrees_fahrenheit(self) -> float:
-        return celsius_to_fahrenheit(self.degrees_celsius)
+        return round(celsius_to_fahrenheit(self.degrees_celsius), 2)
+
+    def __str__(self):
+        return "Reading on {}".format(self.created.strftime("%Y-%m-%d %I:%M %p"))

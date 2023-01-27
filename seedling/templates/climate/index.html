@@ -12,11 +12,23 @@
 <script src="{% static 'js/current_readings_badge.js' %}" defer></script>
 {% endblock %}
 
-{% block content %}
-{% include "includes/current_readings_badge.html" %}
-<div id="temperature-chart"></div>
-<div id="humidity-chart"></div>
-{% endblock content %}
+{% block container %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-2">
+					{% include "includes/current_readings_badge.html" %}
+				</div>
+				<div class="col-md-8">
+          <div id="temperature-chart"></div>
+          <div id="humidity-chart"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock container %}
 
 {% block inline_javascript %}
 <script>
@@ -24,6 +36,8 @@
   window.addEventListener('DOMContentLoaded', () => {
 
     loadCurrentReadingData(currentReadingURL);
+
+    const layout = {paper_bgcolor: "#6d7782"}
 
     const tempData = [
       {
@@ -35,7 +49,7 @@
         }
       }
     ];
-    Plotly.newPlot('temperature-chart', tempData, {title: "Temperature", yaxis: {title: "°F"}});
+    Plotly.newPlot('temperature-chart', tempData, {title: "Temperature (last {{ lookback_hours }} hours)", yaxis: {title: "°F"}});
 
     const humidityData = [
       {
@@ -48,7 +62,7 @@
 
       }
     ]
-    Plotly.newPlot('humidity-chart', humidityData, {title: "Humidity", yaxis: {title: "% Humidity"}});
+    Plotly.newPlot('humidity-chart', humidityData, {title: "Humidity (last {{ lookback_hours }} hours)", yaxis: {title: "% Humidity"}});
 
   });
 </script>

@@ -16,6 +16,7 @@ urlpatterns = [
     path("users/", include("seedling.users.urls", namespace="users")),
     path("climate/", climate.Index.as_view(), name="climate-index"),
     path("climate/now.json", climate.current_reading, name="climate-current-reading-json"),
+    path("climate/activate_pump.json", climate.activate_pump, name="climate-activate-pump-json"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

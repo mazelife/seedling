@@ -1,3 +1,12 @@
+function handleResponse(response) {
+    "use strict";
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw new Error(`Error in getting temperature reading (response code ${response.code})`);
+    }
+}
+
 function updateBadge(data) {
     "use strict";
   let container = document.getElementById("climate-badge-reading");
@@ -7,6 +16,12 @@ function updateBadge(data) {
 
 function loadCurrentReadingData(currentReadingURL) {
     "use strict";
-    jQuery.getJSON(currentReadingURL, updateBadge);
-    setInterval(() => jQuery.getJSON(currentReadingURL, updateBadge), 1000 * 60)
+    fetch(currentReadingURL).then(handleResponse).then(updateBadge).catch(window.alert);
+
+}
+
+function initializeBadge(currentReadingURL) {
+    "use strict";
+    loadCurrentReadingData(currentReadingURL);
+    setInterval(() => loadCurrentReadingData(currentReadingURL), 1000 * 60)
 }

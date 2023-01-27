@@ -251,8 +251,10 @@ INSTALLED_APPS += ["compressor"]
 STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 
 # RaspberryPI Sensor Configs
+# ------------------------------------------------------------------------------
 DHT_SENSOR_PIN = 4
 LED_PIN = 17
+PUMP_CONTROL_PIN = 27
 
 # Your stuff...
 # ------------------------------------------------------------------------------
