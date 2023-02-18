@@ -1,0 +1,14 @@
+[Unit]
+Description=Seedling Django Runserver
+After=multi-user.target
+
+[Service]
+Type=idle
+StandardOutput=journal+console
+WorkingDirectory=/home/pi/Src/seedling
+ExecStart=/home/pi/Envs/seedling/bin/python manage.py runserver 0.0.0.0:8000
+StandardOutput=file:/home/pi/Logs/seedling/server.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

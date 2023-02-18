@@ -1,0 +1,14 @@
+[Unit]
+Description=Seedling background climate sensor daemon
+After=multi-user.target
+
+[Service]
+Type=idle
+StandardOutput=journal+console
+WorkingDirectory=/home/pi/Src/seedling
+ExecStart=/home/pi/Envs/seedling/bin/python manage.py monitor_climate --interval=300
+StandardOutput=file:/home/pi/Logs/seedling/tempsensor.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target
