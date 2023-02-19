@@ -3,13 +3,17 @@
 {% block css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/current_readings_badge.css' %}" />
+<link rel="stylesheet" href="{% static 'css/climate_page.css' %}" />
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
 <script src="{% static 'js/vendored/jquery.js' %}" defer></script>
 <script src="{% static 'js/vendored/plotly.js' %}" defer></script>
+<script src="{% static 'js/climate_charts.js' %}" defer></script>
+{% if PI_DEV_MODE %}
 <script src="{% static 'js/current_readings_badge.js' %}" defer></script>
+{% endif %}
 {% endblock %}
 
 {% block container %}
@@ -21,6 +25,15 @@
 					{% include "includes/current_readings_badge.html" %}
 				</div>
 				<div class="col-md-8">
+          <form id="daterange-form" class="date-range-selector">
+            <select id="daterange-select" name="daterange" class="form-select" aria-label="Choose a date range">
+              <option selected>Select a date range</option>
+              {% for value, label in date_range_choices %}
+              <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+            <button id="daterange-submit" type="submit" class="btn btn-primary">Show</button>
+          </form>
           <div id="temperature-chart"></div>
           <div id="humidity-chart"></div>
 				</div>
@@ -33,36 +46,16 @@
 {% block inline_javascript %}
 <script>
   const sourceData = {{ readings_json|safe }};
+  const dateRangeLabel = "{{ chart_date_range_label }}";
+
   window.addEventListener('DOMContentLoaded', () => {
 
+    renderCharts(sourceData, dateRangeLabel);
+
+    {% if PI_DEV_MODE %}
     loadCurrentReadingData(currentReadingURL);
+    {% endif %}
 
-    const layout = {paper_bgcolor: "#6d7782"}
-
-    const tempData = [
-      {
-        x: sourceData.map((el) => el.created),
-        y: sourceData.map((el) => el.degrees_fahrenheit),
-        type: "scatter",
-        line: {
-          color: "rgb(234, 139, 44)"
-        }
-      }
-    ];
-    Plotly.newPlot('temperature-chart', tempData, {title: "Temperature (last {{ lookback_hours }} hours)", yaxis: {title: "°F"}});
-
-    const humidityData = [
-      {
-        x: sourceData.map((el) => el.created),
-        y: sourceData.map((el) => el.percent_humidity),
-        type: "scatter",
-        line: {
-          color: "rgb(44, 182, 234)"
-        }
-
-      }
-    ]
-    Plotly.newPlot('humidity-chart', humidityData, {title: "Humidity (last {{ lookback_hours }} hours)", yaxis: {title: "% Humidity"}});
 
   });
 </script>

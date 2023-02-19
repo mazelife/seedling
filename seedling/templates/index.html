@@ -21,7 +21,9 @@
 {% block javascript %}
 {{ block.super }}
 <script src="{% static 'js/vendored/jquery.js' %}" defer></script>
+{% if PI_DEV_MODE %}
 <script src="{% static 'js/current_readings_badge.js' %}" defer></script>
+{% endif %}
 {% endblock %}
 
 {% block content %}

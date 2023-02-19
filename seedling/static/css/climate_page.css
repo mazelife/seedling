@@ -1,0 +1,13 @@
+.date-range-selector {
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.date-range-selector select {
+  float: right;
+  max-width: 275px;
+}
+
+.date-range-selector button {
+
+}

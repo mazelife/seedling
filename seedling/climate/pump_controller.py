@@ -2,7 +2,11 @@ import asyncio
 import logging
 
 from django.conf import settings
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    from unittest.mock import MagicMock
+    GPIO = MagicMock()
 
 
 def config_board():

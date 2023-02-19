@@ -16,15 +16,37 @@ from .serializers import ClimateReadingSerializer
 
 class Index(TemplateView):
 
-    lookback_hours = 48
+    date_range_choices: list[tuple[str, int]] = [
+        ("Last 4 hours", 4),
+        ("Last 48 hours", 48),
+        ("Last five days",  24 * 5),
+        ("Last week", 24 * 7),
+        ("Last two weeks", 24 * 7 * 2)
+    ]
+    default_choice_index = 1
     serializer = ClimateReadingSerializer()
     template_name = "climate/index.html"
 
+    def choices_list(self) -> list[tuple[int, str]]:
+        return [(index, label) for index, (label, _) in enumerate(self.date_range_choices)]
+
+    def get_lookback_hours(self) -> tuple[str, int]:
+        try:
+            choice_index = int(self.request.GET.get("daterange", "1"))
+        except ValueError:
+            choice_index = 1
+        if not (0 <= choice_index < len(self.date_range_choices)):
+            choice_index = 1
+        return self.date_range_choices[choice_index]
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        start = timezone.now() - timedelta(hours=self.lookback_hours)
+        label, lookback_hours = self.get_lookback_hours()
+        start = timezone.now() - timedelta(hours=lookback_hours)
         context = super().get_context_data(**kwargs)
         context.update({
-            "lookback_hours": self.lookback_hours,
+            "lookback_hours": lookback_hours,
+            "chart_date_range_label": label,
+            "date_range_choices": self.choices_list(),
             "readings": ClimateReading.objects.all(),
             "readings_json": self.serializer.serialize(ClimateReading.objects.filter(created__gte=start), indent=4)
         })

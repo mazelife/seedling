@@ -173,6 +173,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
+                "seedling.utils.context_processors.pi_dev_mode",
             ],
         },
     }
@@ -252,6 +253,7 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 
 # RaspberryPI Sensor Configs
 # ------------------------------------------------------------------------------
+NO_PI_DEV_MODE = False
 DHT_SENSOR_PIN = 4
 LED_PIN = 17
 PUMP_CONTROL_PIN = 27
