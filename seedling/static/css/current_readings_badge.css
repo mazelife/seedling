@@ -14,6 +14,10 @@
   width: max-content;
 }
 
+#climate-badge.danger {
+  background-image: linear-gradient( 135deg, #FF9292 0%, #9d0505 100%);
+}
+
 #climate-badge-header {
   font-weight: 300;
   text-transform: uppercase;

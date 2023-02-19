@@ -1,4 +1,5 @@
 function renderCharts(sourceData, dateRangeLabel) {
+    "use strict";
 
     document.getElementById("daterange-submit").classList.add("visually-hidden");
 

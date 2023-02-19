@@ -1,6 +1,8 @@
 [Unit]
 Description=Seedling background climate sensor daemon
 After=multi-user.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
 
 [Service]
 Type=idle

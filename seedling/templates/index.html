@@ -31,7 +31,9 @@
 {% endblock content %}
 
 {% block inline_javascript %}
+{% if PI_DEV_MODE %}
 <script>
   window.addEventListener('DOMContentLoaded', () => initializeBadge(currentReadingURL));
 </script>
+{% endif %}
 {% endblock %}
