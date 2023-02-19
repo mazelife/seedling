@@ -1,7 +1,8 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from typing import Any
 
 from django.db import transaction
+from django.db.models import QuerySet
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.generic import TemplateView
@@ -39,6 +40,9 @@ class Index(TemplateView):
             choice_index = 1
         return self.date_range_choices[choice_index]
 
+    def get_queryset(self, start: datetime) -> QuerySet[ClimateReading]:
+        return ClimateReading.objects.filter(created__gte=start).exclude(anomalous=True)
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         label, lookback_hours = self.get_lookback_hours()
         start = timezone.now() - timedelta(hours=lookback_hours)
@@ -48,7 +52,7 @@ class Index(TemplateView):
             "chart_date_range_label": label,
             "date_range_choices": self.choices_list(),
             "readings": ClimateReading.objects.all(),
-            "readings_json": self.serializer.serialize(ClimateReading.objects.filter(created__gte=start), indent=4)
+            "readings_json": self.serializer.serialize(self.get_queryset(start), indent=4)
         })
         return context
 

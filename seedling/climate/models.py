@@ -10,6 +10,7 @@ class ClimateReading(models.Model):
     created = AutoCreatedField("created", unique=True)
     degrees_celsius = models.FloatField()
     percent_humidity = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(1.0)])
+    anomalous = models.BooleanField(default=False)
 
     class Meta:
         get_latest_by = "created"
