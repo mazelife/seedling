@@ -39,7 +39,7 @@ class Recorder:
         video_file = self.video_file_dir / f"{now_label}.mp4"
         data_file = self.video_file_dir / f"{now_label}.dat"
         parent_connection, child_connection = Pipe()
-        diagnostic_data_queue = SimpleQueue()
+        diagnostic_data_queue: SimpleQueue[float] = SimpleQueue()
         for distance in current_window:
             diagnostic_data_queue.put(distance)
 
@@ -47,8 +47,8 @@ class Recorder:
         recording_proc = Process(target=self.record, args=(video_file, child_connection))
         data_proc = Process(target=self.capture_diagnostic_data, args=(data_file, diagnostic_data_queue))
         self.processes = recording_proc, data_proc
-        for proc in self.processes:
-            proc.start()
+        recording_proc.start()
+        data_proc.start()
 
     def stop(self):
         if self.processes and self.process_communications:
