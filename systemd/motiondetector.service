@@ -1,0 +1,16 @@
+[Unit]
+Description=Seedling motion detecting camera daemon
+After=multi-user.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=idle
+StandardOutput=journal+console
+WorkingDirectory=/home/pi/Src/seedling
+ExecStart=/home/pi/Envs/seedling/bin/python -m monitor_and_record_motion.py
+StandardOutput=file:/home/pi/Logs/seedling/motiondetector.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target
