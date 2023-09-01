@@ -26,10 +26,16 @@ class Sensor:
     led_controller: LEDMotionIndicator
     video_recorder: Recorder
 
-    def __init__(self, echo: int = ULTRASONIC_ECHO_PIN, trigger: int = ULTRASONIC_TRIG_PIN):
+    def __init__(
+        self, echo: int = ULTRASONIC_ECHO_PIN, trigger: int = ULTRASONIC_TRIG_PIN
+    ):
         self.echo_pin = echo
         self.trigger_pin = trigger
-        self.sensor = DistanceSensor(echo=ULTRASONIC_ECHO_PIN, trigger=ULTRASONIC_TRIG_PIN, pin_factory=PiGPIOFactory())
+        self.sensor = DistanceSensor(
+            echo=ULTRASONIC_ECHO_PIN,
+            trigger=ULTRASONIC_TRIG_PIN,
+            pin_factory=PiGPIOFactory(),
+        )
         self.led_controller = LEDMotionIndicator()
         self.video_recorder = Recorder(Path("/tmp/video_files/"))
 
@@ -58,7 +64,9 @@ class Sensor:
                 window_variance = variance(window)
                 if window_variance > max_ignored_variance:
                     self.led_controller.indicate_monitoring_active()
-                    if not self.video_recorder.is_recording:  # Not already recording, so start recording.
+                    if (
+                        not self.video_recorder.is_recording
+                    ):  # Not already recording, so start recording.
                         self.video_recorder.start(window)
                     else:  # Already recording so just send diagnostic data.
                         self.video_recorder.send_diagnostic_data(distance)
