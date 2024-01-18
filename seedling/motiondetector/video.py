@@ -59,7 +59,7 @@ class Recorder:
         :param current_window: The contents of the current moving window of distance data from motion detection
         """
         now_label = datetime.now().strftime("%Y-%m-%d--%H-%M-%S")
-        video_file = self.video_file_dir / f"{now_label}.mp4"
+        video_file = self.video_file_dir / f"{now_label}.h264"  # Write an H.264 video stream
         data_file = self.video_file_dir / f"{now_label}.dat"
 
         parent_connection, child_connection = Pipe()
@@ -69,9 +69,7 @@ class Recorder:
             diagnostic_proc_queue.put(distance)
 
         video_proc = Process(target=self.record, args=(video_file, child_connection))
-        data_proc = Process(
-            target=self.capture_diagnostic_data, args=(data_file, diagnostic_proc_queue)
-        )
+        data_proc = Process(target=self.capture_diagnostic_data, args=(data_file, diagnostic_proc_queue))
 
         self.processes = {
             "diagnostic_proc": data_proc,
@@ -110,16 +108,12 @@ class Recorder:
                     message: bytes = connection_to_parent.recv()
                     if message == _VIDEO_SENTINEL:
                         stop_time = datetime.now()
-                        camera.stop_recording(str(file))
+                        camera.stop_recording()
                         delta = stop_time - start_time
                         logger.info(f"Video recording stopped after {delta}.")
                         break
                     else:
-                        logger.info(
-                            'Unknown message: "{}". Ignored.'.format(
-                                message.decode("utf-8")
-                            )
-                        )
+                        logger.info('Unknown message: "{}". Ignored.'.format(message.decode("utf-8")))
                 camera.wait_recording(5)
 
     @staticmethod
