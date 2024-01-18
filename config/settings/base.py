@@ -254,9 +254,6 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # RaspberryPI Sensor Configs
 # ------------------------------------------------------------------------------
 NO_PI_DEV_MODE = False
-DHT_SENSOR_PIN = 4
+DHT_SENSOR_PIN = 4  # This is a GPIO number, not pin.
 LED_PIN = 17
 PUMP_CONTROL_PIN = 27
-
-# Your stuff...
-# ------------------------------------------------------------------------------

@@ -33,3 +33,9 @@ Live reloading and Sass CSS compilation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+
+
+Hardware Notes
+--------------
+
+Raspberry Pi 3 Model B+ Rev 1.3.
