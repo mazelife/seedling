@@ -37,7 +37,17 @@ class LEDMotionIndicator(LEDController):
     monitoring_active: bool = False
 
     def flash_startup(self):
+        self.activate_green(2.0)
+        time.sleep(0.5)
+        self.activate_green(1.5)
+        time.sleep(0.5)
         self.activate_green(1.0)
+        time.sleep(0.5)
+        self.activate_green(0.2)
+        time.sleep(0.2)
+        self.activate_green(0.2)
+        time.sleep(0.2)
+        self.activate_green(0.2)
 
     def indicate_monitoring_active(self):
         if not self.monitoring_active:

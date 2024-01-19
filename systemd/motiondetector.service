@@ -8,7 +8,7 @@ StartLimitBurst=5
 Type=idle
 StandardOutput=journal+console
 WorkingDirectory=/home/pi/Src/seedling
-ExecStart=/home/pi/Envs/seedling/bin/python -m monitor_and_record_motion.py
+ExecStart=/home/pi/Envs/seedling/bin/python monitor_and_record_motion.py
 StandardOutput=file:/home/pi/Logs/seedling/motiondetector.log
 StandardError=inherit
 
