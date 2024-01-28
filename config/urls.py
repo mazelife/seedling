@@ -6,9 +6,11 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 from seedling.climate import views as climate
+from seedling.imaging.views import SiteIndex
+
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="index.html"), name="home"),
+    path("", SiteIndex.as_view(), name="home"),
     path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

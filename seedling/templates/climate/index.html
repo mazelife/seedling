@@ -11,7 +11,7 @@
 <script src="{% static 'js/vendored/jquery.js' %}" defer></script>
 <script src="{% static 'js/vendored/plotly.js' %}" defer></script>
 <script src="{% static 'js/climate_charts.js' %}" defer></script>
-{% if PI_DEV_MODE %}
+{% if not PI_DEV_MODE %}
 <script src="{% static 'js/current_readings_badge.js' %}" defer></script>
 {% endif %}
 {% endblock %}
@@ -52,7 +52,7 @@
 
     renderCharts(sourceData, dateRangeLabel);
 
-    {% if PI_DEV_MODE %}
+    {% if not PI_DEV_MODE %}
     loadCurrentReadingData(currentReadingURL);
     {% endif %}
 
