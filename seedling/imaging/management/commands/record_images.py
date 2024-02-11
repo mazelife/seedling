@@ -11,13 +11,13 @@ from seedling.imaging.models import Image
 
 
 class Command(BaseCommand):
-    help = "Poll temperature and humidity every 5 minutes and store in the database"
+    help = "Capture an image from the camera at a fixed interval and store in the database"
     height = 768
     width = 1024
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument("--interval", default=60 * 5, type=int, help="Seconds between img capture")
-        parser.add_argument("--cleanup-after", default=7, type=int, help="Remove images over N days old")
+        parser.add_argument("--cleanup-after", default=12, type=int, help="Remove images over N hours old")
 
     def handle(self, *args, **options):
         camera = PiCamera()
@@ -32,11 +32,9 @@ class Command(BaseCommand):
                 image_record = Image(height_px=self.height, width_px=self.width)
                 image_record.image = ImageFile(image_stream, name=file_name)
                 image_record.save()
-
                 self.stdout.write(f'Saved image "{file_name}".')
                 # Now remove expired images.
                 Image.objects.remove_old(options["cleanup_after"])
-
                 time.sleep(options["interval"])
         except KeyboardInterrupt:
             self.stdout.write(self.style.SUCCESS("Exiting."))

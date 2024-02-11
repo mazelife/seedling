@@ -40,15 +40,16 @@
 <script src="{% static 'js/vendored/jquery.js' %}" defer></script>
 {% if not PI_DEV_MODE %}
 <script src="{% static 'js/current_readings_badge.js' %}" defer></script>
+<script src="{% static 'js/image_update.js' %}" defer></script>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 {% include "includes/current_readings_badge.html" %}
 {% if image %}
-<figure id="image">
-  <img src="{{ image.image.url }}" width="{{ image.width_px }}" height="{{ image.height_px }}">
-  <figcaption style="width: {{ image.width_px }}px">Image taken {{ image.created|naturaltime }}</figcaption>
+<figure id="image-container">
+  <img id="current-image" src="{{ image.image.url }}" width="{{ image.width_px }}" height="{{ image.height_px }}" data-image-id="{{ image.id }}">
+  <figcaption id="image-age" style="width: {{ image.width_px }}px">Image taken {{ image.created|naturaltime }}</figcaption>
 </figure>
 {% endif %}
 {% endblock content %}
@@ -57,6 +58,7 @@
 {% if not PI_DEV_MODE %}
 <script>
   window.addEventListener('DOMContentLoaded', () => initializeBadge(currentReadingURL));
+  window.addEventListener('DOMContentLoaded', () => runContinuousImageRefresh(latestImageURL, 5));
 </script>
 {% endif %}
 {% endblock %}
