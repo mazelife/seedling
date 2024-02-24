@@ -1,5 +1,5 @@
 function runContinuousImageRefresh(latestImageURL, intervalSecs) {
-    const interval = setInterval(() => {loadLatestImageData(latestImageURL)}, intervalSecs * 1000);
+    const interval = setInterval(() => {loadLatestImageData(latestImageURL)}, intervalSecs * 5000);
 }
 
 
@@ -27,14 +27,16 @@ function updateImage(data) {
 
   let image = document.getElementById("current-image");
   let currentId = Number(image.dataset.imageId);
+  let caption = document.getElementById("image-age");
 
   if (currentId == data.id) {
+    caption.textContent =  `Image taken ${data.age}`
     console.log("Nothing has changed.")
     return;
 
   }
   image.src = data.url;
   image.dataset.imageId = currentId;
-  document.getElementById("image-age").textContent =  `Image taken ${data.age}`
+  caption.textContent =  `Image taken ${data.age}`
 
 }

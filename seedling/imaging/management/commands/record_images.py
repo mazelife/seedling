@@ -20,15 +20,15 @@ class Command(BaseCommand):
         parser.add_argument("--cleanup-after", default=12, type=int, help="Remove images over N hours old")
 
     def handle(self, *args, **options):
-        camera = PiCamera()
-        camera.resolution = (self.width, self.height)
-        time.sleep(2)  # Camera warm-up time
         try:
             while True:
                 formatted_date = now().strftime("%Y-%m-%d-%H-%M-%S")
                 file_name = f"{formatted_date}.jpeg"
                 image_stream = BytesIO()
-                camera.capture(image_stream, "jpeg")
+                with PiCamera() as camera:
+                    camera.resolution = (self.width, self.height)
+                    time.sleep(2)  # Camera warm-up time
+                    camera.capture(image_stream, "jpeg")
                 image_record = Image(height_px=self.height, width_px=self.width)
                 image_record.image = ImageFile(image_stream, name=file_name)
                 image_record.save()
