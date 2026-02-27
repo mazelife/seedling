@@ -12,8 +12,10 @@ class SiteIndex(TemplateView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        if image := Image.objects.latest():
-            context["image"] = image
+        try:
+            context["image"] = Image.objects.latest()
+        except Image.DoesNotExist:
+            context["image"] = None
         return context
 
 
