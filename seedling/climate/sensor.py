@@ -52,7 +52,7 @@ def sample_humidity_and_temperature(samples=5) -> Optional[tuple[float, float]]:
 def is_anomalous(percent_humidity: float, degrees_celsius: float) -> bool:
     if not (0.0 <= percent_humidity <= 100):
         return True
-    # If temp is outside of -10°F to 110°F range, we'll consider it anomalous.
+    # If temp is outside of the -10°F to 110°F range, we'll consider it anomalous.
     if not (-23.0 <= degrees_celsius <= 44):
         return True
     return False
