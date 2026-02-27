@@ -37,9 +37,16 @@ Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readt
 Systemd
 --------
 
+Copy files to ``/etc/systemd/system/``. Ensure that the directory ``home/pi/Logs/seedling/`` exists.
+
 List all services::
 
     systemctl list-unit-files --type=service
+
+Start service::
+
+    systemctl start server
+
 
 Check service status::
 
@@ -51,4 +58,4 @@ Check service status::
 Hardware Notes
 --------------
 
-Raspberry Pi 3 Model B+ Rev 1.3.
+Raspberry Pi 5 Model B Rev 1.1

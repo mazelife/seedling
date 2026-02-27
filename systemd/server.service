@@ -6,7 +6,7 @@ After=multi-user.target
 Type=idle
 StandardOutput=journal+console
 WorkingDirectory=/home/pi/Src/seedling
-ExecStart=/home/pi/Envs/seedling/bin/python manage.py runserver 0.0.0.0:8000
+ExecStart=/home/pi/miniconda3/envs/seedling/bin/python manage.py runserver 0.0.0.0:8000
 StandardOutput=file:/home/pi/Logs/seedling/server.log
 StandardError=inherit
 
