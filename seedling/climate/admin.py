@@ -6,4 +6,4 @@ from .models import ClimateReading
 class ClimateReadingAdmin(admin.ModelAdmin):
     date_hierarchy = "created"
     list_display = ("created", "degrees_fahrenheit", "percent_humidity", "anomalous")
-
+    list_filter = ("anomalous",)

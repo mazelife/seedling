@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load static %}
+{% extends "base.html" %}{% load humanize static %}
 
 {% block css %}
 {{ block.super }}
@@ -13,27 +13,52 @@
   }
 
   #climate-badge {
-    margin-top: 50px;
+    position: absolute
   }
+
+  .container {
+    padding-top: 50px;
+  }
+
+  figure img {
+    display: block;
+    margin: 0px auto;
+  }
+  figure figcaption {
+    color: #e3e3e3;
+    font-size: 0.9em;
+    margin: 0px auto;
+    text-align: right;
+  }
+
+
 </style>
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
 <script src="{% static 'js/vendored/jquery.js' %}" defer></script>
-{% if PI_DEV_MODE %}
+{% if not PI_DEV_MODE %}
 <script src="{% static 'js/current_readings_badge.js' %}" defer></script>
+<script src="{% static 'js/image_update.js' %}" defer></script>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 {% include "includes/current_readings_badge.html" %}
+{% if image %}
+<figure id="image-container">
+  <img id="current-image" src="{{ image.image.url }}" width="{{ image.width_px }}" height="{{ image.height_px }}" data-image-id="{{ image.id }}">
+  <figcaption id="image-age" style="width: {{ image.width_px }}px">Image taken {{ image.created|naturaltime }}</figcaption>
+</figure>
+{% endif %}
 {% endblock content %}
 
 {% block inline_javascript %}
-{% if PI_DEV_MODE %}
+{% if not PI_DEV_MODE %}
 <script>
   window.addEventListener('DOMContentLoaded', () => initializeBadge(currentReadingURL));
+  window.addEventListener('DOMContentLoaded', () => runContinuousImageRefresh(latestImageURL, 5));
 </script>
 {% endif %}
 {% endblock %}

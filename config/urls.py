@@ -6,9 +6,11 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 from seedling.climate import views as climate
+from seedling.imaging import views as imaging
+
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="index.html"), name="home"),
+    path("", imaging.SiteIndex.as_view(), name="home"),
     path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
@@ -17,6 +19,7 @@ urlpatterns = [
     path("climate/", climate.Index.as_view(), name="climate-index"),
     path("climate/now.json", climate.current_reading, name="climate-current-reading-json"),
     path("climate/activate_pump.json", climate.activate_pump, name="climate-activate-pump-json"),
+    path("image/latest.json", imaging.current_image, name="image-latest-json"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
