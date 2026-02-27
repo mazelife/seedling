@@ -33,3 +33,22 @@ Live reloading and Sass CSS compilation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+
+Systemd
+--------
+
+List all services::
+
+    systemctl list-unit-files --type=service
+
+Check service status::
+
+    systemctl status server
+
+
+
+
+Hardware Notes
+--------------
+
+Raspberry Pi 3 Model B+ Rev 1.3.

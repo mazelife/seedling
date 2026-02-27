@@ -32,6 +32,7 @@
       {% endcompress %}
       <script>
         const currentReadingURL = "{% url 'climate-current-reading-json' %}";
+        const latestImageURL = "{% url 'image-latest-json' %}";
       </script>
     {% endblock javascript %}
 
@@ -55,6 +56,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'climate-index' %}">Climate</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -75,7 +79,7 @@
       {% endif %}
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+        <p>Content goes here.</p>
       {% endblock content %}
 
     </div> <!-- /container -->

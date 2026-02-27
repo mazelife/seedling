@@ -1,0 +1,16 @@
+[Unit]
+Description=Seedling background image capture daemon
+After=multi-user.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=idle
+StandardOutput=journal+console
+WorkingDirectory=/home/pi/Src/seedling
+ExecStart=/home/pi/Envs/seedling/bin/python manage.py record_images --interval=300 --cleanup-after=12
+StandardOutput=file:/home/pi/Logs/seedling/imagecapture.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

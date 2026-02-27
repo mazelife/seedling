@@ -58,3 +58,4 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+NO_PI_DEV_MODE = True
