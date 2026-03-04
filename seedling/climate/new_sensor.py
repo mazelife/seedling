@@ -131,3 +131,7 @@ class DHTSensor:
         self.code = 0
         lgpio.gpio_claim_alert(self.chip, self.gpio_pin, lgpio.RISING_EDGE)
         return self._datum()
+
+
+if __name__ == "__main__":
+    sensor = DHTSensor(4)
