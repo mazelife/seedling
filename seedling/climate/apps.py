@@ -9,4 +9,4 @@ class ClimateConfig(AppConfig):
     name = 'seedling.climate'
 
     def ready(self) -> None:
-        config_board()
+        pass
